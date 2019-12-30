@@ -81,7 +81,7 @@ log_price = np.log(data_Cleaned['Price'])
 # Then we add it to our data frame
 data_Cleaned['log_price'] = log_price
 data_Cleaned
-data_CLeaned=data_Cleaned.drop(['Price'],axis=1)
+data_Cleaned=data_Cleaned.drop(['Price'],axis=1)
 
 sns.pairplot(data_Cleaned)
 
