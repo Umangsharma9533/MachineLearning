@@ -25,6 +25,10 @@ data_no_mv=raw_data.dropna(axis=0)
 #Now check the table whether all the null values are removed from the calculation
 data_no_mv.describe(include='all')
 
+from sklearn.feature_selection import f_regression
+x=data_no_mv[['Mileage','EngineV','Year']]
+y=data_no_mv['Price']
+f_regression(x,y)
 
 #plot a graph of Price column of the table to chekc that values are normally distributed
 sns.distplot(data_no_mv['Price'])
@@ -55,7 +59,7 @@ sns.distplot(data_2_EngineV['Mileage'])
 
 #Remove the outliers from the year columns here we will preserve 1% of top values
 #Now plot a graph to check whether it is normally distributed or not
-q=data_2_EngineV['Year'].quantile(0.01)
+q=data_2_EngineV['Year'].quantile(0.99)
 data_3_Year=data_2_EngineV[data_2_EngineV['Year']<q]
 sns.distplot(data_3_Year['Year'])
 
@@ -106,14 +110,93 @@ data_no_multicollinearity = data_Cleaned.drop(['Year'],axis=1)
 
 data_with_dummies=pd.get_dummies(data_no_multicollinearity,drop_first=True)
 
-data_with_dummies
+data_with_dummies.columns.values
 
 
-cols = ['log_price', 'Mileage', 'EngineV', 'Brand_BMW',
+cols=['log_price','Mileage', 'EngineV', 'Brand_BMW',
        'Brand_Mercedes-Benz', 'Brand_Mitsubishi', 'Brand_Renault',
        'Brand_Toyota', 'Brand_Volkswagen', 'Body_hatch', 'Body_other',
        'Body_sedan', 'Body_vagon', 'Body_van', 'Engine Type_Gas',
-        'Engine Type_Petrol', ]
+       'Engine Type_Other', 'Engine Type_Petrol', 'Registration_yes',
+       'Model_100', 'Model_11', 'Model_116', 'Model_118', 'Model_120',
+       'Model_19', 'Model_190', 'Model_200', 'Model_21', 'Model_210',
+       'Model_220', 'Model_230', 'Model_25', 'Model_250', 'Model_300',
+       'Model_316', 'Model_318', 'Model_320', 'Model_323', 'Model_324',
+       'Model_325', 'Model_328', 'Model_330', 'Model_335', 'Model_428',
+       'Model_4Runner', 'Model_5', 'Model_5 Series', 'Model_5 Series GT',
+       'Model_520', 'Model_523', 'Model_524', 'Model_525', 'Model_528',
+       'Model_530', 'Model_535', 'Model_540', 'Model_545', 'Model_550',
+       'Model_6 Series Gran Coupe', 'Model_630', 'Model_640', 'Model_645',
+       'Model_650', 'Model_730', 'Model_735', 'Model_740', 'Model_745',
+       'Model_750', 'Model_760', 'Model_80', 'Model_9', 'Model_90',
+       'Model_A 140', 'Model_A 150', 'Model_A 170', 'Model_A 180',
+       'Model_A1', 'Model_A3', 'Model_A4', 'Model_A4 Allroad', 'Model_A5',
+       'Model_A6', 'Model_A6 Allroad', 'Model_A7', 'Model_A8',
+       'Model_ASX', 'Model_Amarok', 'Model_Auris', 'Model_Avalon',
+       'Model_Avensis', 'Model_Aygo', 'Model_B 170', 'Model_B 180',
+       'Model_B 200', 'Model_Beetle', 'Model_Bora', 'Model_C-Class',
+       'Model_CL 180', 'Model_CL 500', 'Model_CL 55 AMG', 'Model_CL 550',
+       'Model_CL 63 AMG', 'Model_CLA 200', 'Model_CLA 220',
+       'Model_CLA-Class', 'Model_CLC 180', 'Model_CLC 200',
+       'Model_CLK 200', 'Model_CLK 220', 'Model_CLK 230', 'Model_CLK 240',
+       'Model_CLK 280', 'Model_CLK 320', 'Model_CLK 430', 'Model_CLS 350',
+       'Model_CLS 500', 'Model_CLS 63 AMG', 'Model_Caddy', 'Model_Camry',
+       'Model_Caravelle', 'Model_Carina', 'Model_Carisma', 'Model_Celica',
+       'Model_Clio', 'Model_Colt', 'Model_Corolla', 'Model_Corolla Verso',
+       'Model_Cross Touran', 'Model_Duster', 'Model_E-Class',
+       'Model_Eclipse', 'Model_Eos', 'Model_Espace', 'Model_FJ Cruiser',
+       'Model_Fluence', 'Model_Fortuner', 'Model_G 320', 'Model_G 350',
+       'Model_G 500', 'Model_G 55 AMG', 'Model_G 63 AMG', 'Model_GL 320',
+       'Model_GL 350', 'Model_GL 420', 'Model_GL 450', 'Model_GL 500',
+       'Model_GL 550', 'Model_GLK 220', 'Model_GLK 300', 'Model_Galant',
+       'Model_Golf GTI', 'Model_Golf II', 'Model_Golf III',
+       'Model_Golf IV', 'Model_Golf Plus', 'Model_Golf V',
+       'Model_Golf VI', 'Model_Golf VII', 'Model_Golf Variant',
+       'Model_Grand Scenic', 'Model_Grandis', 'Model_Hiace',
+       'Model_Highlander', 'Model_Hilux', 'Model_I3', 'Model_IQ',
+       'Model_Jetta', 'Model_Kangoo', 'Model_Koleos', 'Model_L 200',
+       'Model_LT', 'Model_Laguna', 'Model_Lancer',
+       'Model_Lancer Evolution', 'Model_Lancer X',
+       'Model_Lancer X Sportback', 'Model_Land Cruiser 100',
+       'Model_Land Cruiser 105', 'Model_Land Cruiser 200',
+       'Model_Land Cruiser 76', 'Model_Land Cruiser 80',
+       'Model_Land Cruiser Prado', 'Model_Latitude', 'Model_Lite Ace',
+       'Model_Logan', 'Model_Lupo', 'Model_M5', 'Model_M6', 'Model_MB',
+       'Model_ML 250', 'Model_ML 270', 'Model_ML 280', 'Model_ML 320',
+       'Model_ML 350', 'Model_ML 400', 'Model_ML 430', 'Model_ML 500',
+       'Model_ML 550', 'Model_ML 63 AMG', 'Model_Mark II', 'Model_Master',
+       'Model_Matrix', 'Model_Megane', 'Model_Modus', 'Model_Multivan',
+       'Model_New Beetle', 'Model_Outlander', 'Model_Outlander XL',
+       'Model_Pajero', 'Model_Pajero Pinin', 'Model_Pajero Sport',
+       'Model_Pajero Wagon', 'Model_Passat B2', 'Model_Passat B3',
+       'Model_Passat B4', 'Model_Passat B5', 'Model_Passat B6',
+       'Model_Passat B7', 'Model_Passat B8', 'Model_Passat CC',
+       'Model_Phaeton', 'Model_Pointer', 'Model_Polo', 'Model_Previa',
+       'Model_Prius', 'Model_Q3', 'Model_Q5', 'Model_Q7', 'Model_R 320',
+       'Model_R8', 'Model_Rav 4', 'Model_S 140', 'Model_S 250',
+       'Model_S 280', 'Model_S 300', 'Model_S 320', 'Model_S 350',
+       'Model_S 400', 'Model_S 420', 'Model_S 430', 'Model_S 500',
+       'Model_S 550', 'Model_S 600', 'Model_S 63 AMG', 'Model_S 65 AMG',
+       'Model_S4', 'Model_S5', 'Model_S8', 'Model_SL 500 (550)',
+       'Model_SL 55 AMG', 'Model_SLK 200', 'Model_SLK 350',
+       'Model_Sandero', 'Model_Scenic', 'Model_Scion', 'Model_Scirocco',
+       'Model_Sequoia', 'Model_Sharan', 'Model_Sienna', 'Model_Smart',
+       'Model_Space Star', 'Model_Space Wagon', 'Model_Sprinter',
+       'Model_Sprinter 208', 'Model_Sprinter 210', 'Model_Sprinter 211',
+       'Model_Sprinter 212', 'Model_Sprinter 213', 'Model_Sprinter 311',
+       'Model_Sprinter 312', 'Model_Sprinter 313', 'Model_Sprinter 315',
+       'Model_Sprinter 316', 'Model_Sprinter 318', 'Model_Sprinter 319',
+       'Model_Symbol', 'Model_Syncro', 'Model_T2 (Transporter)',
+       'Model_T3 (Transporter)', 'Model_T4 (Transporter)',
+       'Model_T4 (Transporter) ', 'Model_T5 (Transporter)',
+       'Model_T5 (Transporter) ', 'Model_T6 (Transporter)',
+       'Model_T6 (Transporter) ', 'Model_TT', 'Model_Tacoma',
+       'Model_Tiguan', 'Model_Touareg', 'Model_Touran', 'Model_Trafic',
+       'Model_Tundra', 'Model_Up', 'Model_V 250', 'Model_Vaneo',
+       'Model_Vento', 'Model_Venza', 'Model_Viano', 'Model_Virage',
+       'Model_Vista', 'Model_Vito', 'Model_X1', 'Model_X3', 'Model_X5',
+       'Model_X5 M', 'Model_X6', 'Model_X6 M', 'Model_Yaris', 'Model_Z3',
+       'Model_Z4']
         
         
 # To implement the reordering, we will create a new df, which is equal to the old one but with the new order of features
@@ -291,3 +374,6 @@ pd.options.display.max_rows = 999
 pd.set_option('display.float_format', lambda x: '%.2f' % x)
 # Finally, we sort by difference in % and manually check the model
 df_pf.sort_values(by=['Difference%'])
+
+# Obtain the weights (coefficients) of the regression
+reg.coef_
