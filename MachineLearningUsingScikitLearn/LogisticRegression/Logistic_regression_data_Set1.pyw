@@ -1,3 +1,4 @@
+#Import libraries
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -5,28 +6,35 @@ import statsmodels.api as sm
 import seaborn as sns
 sns.set()
 
+#Load Data into data frame
 raw_data=pd.read_csv('Bank-data.csv')
 raw_data
 
+#Copy data to a new variable to remove unwanted data and convert Value yes to 1 and no to 0
 data=raw_data.copy()
 data=data.drop('Unnamed: 0',axis=1)
 data['y']=data['y'].map({'yes':1,'no':0})
 data
 
-
+#Declare dependent and independent variables
+#Independent variable
 x1=data['duration']
+#dependent variable
 y=data['y']
 
-
+#Plotting regression
 x=sm.add_constant(x1)
 reg_log=sm.Logit(y,x)
 results_summary=reg_log.fit()
-
+#checking summary of regression
 results_summary.summary()
+#plot graph for provided data
 plt.scatter(x1,y)
 
+##### include other variables in independent variable to check what impact it will create on regression output
 x1=data[['duration','interest_rate','march','credit','previous']]
 y=data['y']
+#Regression
 
 x=sm.add_constant(x1)
 reg_log=sm.Logit(y,x1)
@@ -34,7 +42,7 @@ results_summary=reg_log.fit()
 
 results_summary.summary()
 
-
+#checking the accuracy rate
 def confusion_matrix(data,actual_values,model):
         
         # Confusion matrix 
@@ -69,17 +77,22 @@ def confusion_matrix(data,actual_values,model):
 confusion_matrix(x1,y,results_summary)
 #Test the model
 
+# Testing the model, load the data
+
 test_data=pd.read_csv('Bank-data-testing.csv')
 
 test_data
+#Preprocess the data
+
 test_data['y']=test_data['y'].map({'yes':1,'no':0})
 test_data=test_data.drop('Unnamed: 0',axis=1)
 test_data
+#Declaring dependent and independent variable
 
 x1_test=test_data[['duration','interest_rate','march','credit','previous']]
 y_test=test_data['y']
 x_test=sm.add_constant(x1_test)
 reg_log=sm.Logit(y_test,x1_test)
 results_summary=reg_log.fit()
-
+#predict
 confusion_matrix(x1_test,y_test,results_summary)
