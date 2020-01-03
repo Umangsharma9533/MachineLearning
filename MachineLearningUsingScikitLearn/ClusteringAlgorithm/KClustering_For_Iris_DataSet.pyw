@@ -7,7 +7,7 @@ sns.set()
 from sklearn.cluster import KMeans
 
 # Load the data
-data = pd.read_csv('iris_dataset.csv')
+data = pd.read_csv('iris-dataset.csv')
 # Check the data
 data
 
