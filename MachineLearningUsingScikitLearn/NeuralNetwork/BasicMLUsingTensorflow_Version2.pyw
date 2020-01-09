@@ -15,18 +15,16 @@ generated_inputs=np.column_stack((x_axis,z_axis))
 targets= 2*x_axis - 3*z_axis + 5 + noise
 
 #Save data into file with .pyz format
-np.savez('Tf_Intro.pyz',inputs =generated_inputs, outputs=targets)
+np.savez('Tf_Intro.npz',inputs =generated_inputs, outputs=targets)
 
 #Load the training data
-training_data=np.load('Tf_Intro.pyz')
+training_data=np.load('Tf_Intro.npz')
 # Now create a model
-model=tf.keras.Sequential(tf.keras.layers.Dense(1))# will create a targetted equation y=mx+c,we can add model=tf.keras.Sequential(tf.keras.layers.Dense(1),kernel_initializer=tf.random.uniform(minval=-0.1,maxval=0.1),bias_initializer) to achive same results as that of numpy implementation
+model=tf.keras.Sequential(tf.keras.layers.Dense(1,kernel_initializer=tf.random_uniform_initializer(minval=-0.1,maxval=0.1),bias_initializer=tf.random_uniform_initializer(minval=-0.1,maxval=0.1)))# will create a targetted equation y=mx+c
 
-#We could have used custom learning rate as here we use by default of tensorflow
-#custom_opt=tf.keras.optimizers.sgd(lwarning_rate=0.01)
-#model.compile(optimizer=custom_opt,loss='mean_squared_error')
 #compile the model using the requred optimizer and loss function
-model.compile(optimizer='sgd',loss='mean_squared_error')
+custom_opt=tf.keras.optimizers.SGD(learning_rate=0.01)
+model.compile(optimizer=custom_opt, loss='huber_loss')
 
 #model  fits with data
 #epochs means iteration of full datasets
