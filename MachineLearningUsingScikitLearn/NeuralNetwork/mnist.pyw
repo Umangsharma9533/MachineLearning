@@ -1,3 +1,12 @@
+#Steps to be followed for mnist
+#1) Load data from tensorflow_datasets and use it
+#2) Preprocess Split data in Training,Validation and Test datasets
+    #Ratio for Datasets
+        # Training dataset =70% of actual dataset
+        # Validation dataset = 10 % of actual dataset
+        # Test dataset = 20% of actual dataset
+#3) Outline Model
+#4) Optimization
 #import relevant libraries
 
 import numpy as np
@@ -55,3 +64,38 @@ BATCH_SIZE=100
 #batch() : Will create batches of data , with input size each
 #We dont need batching for validation data
 train_data=train_data.batch(BATCH_SIZE)
+validation_data=validation_data.batch(number_validation_Sample)
+
+#Iter() creates a object that iterate one at a time
+#next() loads next batch
+validation_inputs,validation_targets=next(iter(validation_data))
+
+
+######Outline The Model
+#Width of input layer
+input_size=784
+#Width of Output Layer
+output_size=10
+#Widht of each hidden Layer
+hidden_layer_size=10
+
+#Creating a model 
+#tf.keras.layers.Flatten(original Shape) : Transforms a tensor to vector
+#tf.keras.layers.Dense(output size) : Takes the inputs , provided to the model and calculated dot product
+#of the inputs and the weights and add the bias.This is also where we can apply actiavtion function
+model=tf.keras.Sequential([tf.keras.layers.Flatten(input_shape=(28,28,1)),
+                          tf.keras.layers.Dense(hidden_layer_size,actiavtion='relu'),
+						  tf.keras.layers.Dense(hidden_layer_size,actiavtion='relu'),
+						  tf.keras.layers.Dense(output_size,actiavtion='softmax')
+						  ])
+						  
+#Optimization and Loss Function
+model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+
+#Training of model
+#At beginning of each epoch , the training loss will be set to 0
+#The algorithm will iterate over a preset number of batches, all from train_data
+#The weights and biases will be updated as many times as there are batches
+#We will get a value for the loss func
+Num_Epochs=5
+model.fit(train_data,epochs=Num_Epochs,validation_data=(validation_inputs,validation_targets),verbose=2)
