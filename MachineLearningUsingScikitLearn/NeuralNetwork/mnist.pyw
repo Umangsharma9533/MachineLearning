@@ -98,4 +98,8 @@ model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['
 #The weights and biases will be updated as many times as there are batches
 #We will get a value for the loss func
 Num_Epochs=5
-model.fit(train_data,epochs=Num_Epochs,validation_data=(validation_inputs,validation_targets),verbose=2)
+model.fit(train_data,epochs=Num_Epochs,validation_data=(validation_inputs,validation_targets),verbose=2,validation_steps=10)
+
+
+#Testing the model
+model.evaluate(test_data)
