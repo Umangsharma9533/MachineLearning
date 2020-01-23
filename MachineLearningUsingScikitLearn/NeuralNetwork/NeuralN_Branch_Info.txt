@@ -1,0 +1,4 @@
+This Folder contains different use case and its implementation
+1) AudioBook Use case : In this particular implementation we have data of customer who purchased atleast once ,Now according to the use case we need Machine Learning Alogorithm which can predict whether the customer will buy next time
+2) Mnist : In this implementation we implement a machine learning algorithm which will scan a image and predict the number from 0-9
+3) Basic neural network : This is a basic implementation with made up dataset generated for training to train machine and make prediction
