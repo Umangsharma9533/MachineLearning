@@ -1,3 +1,19 @@
+#Problem Statement
+#.csv file contain the data of employees..
+#Create a model to predict to find whether employee will remain in company or will quit the job
+#Data set contain
+# 1) Satisfaction_level
+# 2) Last_evaluation
+# 3) Number_project
+# 4) Average_montly_hours
+# 5) Time_spend_company
+# 6) Work_accident
+# 7) Promotion_last_5years
+# 8) Department
+# 9) Salary
+
+# 10) Left: 0:if employee retain, 1: If employee left the job
+
 #Import relevant libraries
 #Panda : Used for Data Manipulation
 #Sklearn:Used for importing Logistic Regression model, split data into train and test data sets, Reshuffling of data,For feature selection
