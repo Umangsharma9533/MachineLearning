@@ -34,6 +34,7 @@ df_ready_to_split.count()
 df_dept_dummies=pd.get_dummies(df_ready_to_split['Department'])
 df_with_duumy_sal=pd.get_dummies(df_with_dummies['salary'])
 #Concatinating dummies into the data frame
+df_with_dummies=pd.concat([df_ready_to_split, df_dept_dummies], axis=1)
 df_with_dummy_sal=pd.concat([df_with_dummies,df_with_duumy_sal],axis=1)
 #Drop the categorical columns after creation and addition of dummies inot DataFrame to remove ambiquity
 df_with_dummy_sal=df_with_dummy_sal.drop(['Department','salary'],axis=1)
