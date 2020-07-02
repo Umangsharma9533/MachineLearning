@@ -71,3 +71,53 @@ rescaled_without_aa = rescale(rotated_cat_image, 1/4, anti_aliasing=False, multi
 # Show the resulting images
 show_image(rescaled_with_aa, "Transformed with anti aliasing")
 show_image(rescaled_without_aa, "Transformed without anti aliasing")
+
+
+#=============================
+# Resizing Image
+# Import the module and function
+from skimage.transform import resize
+
+# Set proportional height so its half its size
+height = int(dogs_banner.shape[0] / 2)
+width = int(dogs_banner.shape[1]/ 2)
+
+# Resize using the calculated proportional height and width
+image_resized = resize(dogs_banner, (height,width),
+                       anti_aliasing=True)
+
+# Show the original and rotated image
+show_image(dogs_banner, 'Original')
+show_image(image_resized, 'Resized image')
+
+
+#==================================================================
+# Morphology : Remove noise
+# Suits for images:
+#  a) Dilation : Add extra pixels in the image
+#  b) Remove pixels on object boundaries
+# Import the morphology module
+# show_image is a function form matplotlib 
+from skimage import morphology
+
+# Obtain the eroded shape 
+eroded_image_shape = morphology.binary_erosion(upper_r_image) 
+
+# See results
+show_image(upper_r_image, 'Original')
+show_image(eroded_image_shape, 'Eroded image')
+
+
+
+
+#==================================================================
+#Dilation
+# Import the module
+from skimage import morphology
+
+# Obtain the dilated image 
+dilated_image = morphology.binary_dilation(world_image)
+
+# See results
+show_image(world_image, 'Original')
+show_image(dilated_image, 'Dilated image')
